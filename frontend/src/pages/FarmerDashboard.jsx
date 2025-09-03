@@ -45,7 +45,18 @@ function FarmerDashboard() {
   // Generate AI advice when data updates
   useEffect(() => {
     if (data.moisture && data.ph && data.temperature && data.npk) {
-      getFarmingTip(data).then((tip) => setAdvice(tip));
+      getAgroRecommendation(data)
+  .then((tip) => {
+    if (!tip || tip.toLowerCase().includes("error") || tip.includes("⚠️")) {
+      throw new Error("Invalid response");
+    }
+    setAdvice(tip);
+  })
+  .catch(async (err) => {
+    console.warn("AgroThink failed:", err);
+    setAdvice("⚠️ AI unavailable");
+  });
+
     }
   }, [data]);
 
