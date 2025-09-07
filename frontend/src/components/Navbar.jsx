@@ -6,7 +6,7 @@ import { IoIosPerson } from "react-icons/io";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
-import SimpleModal from "./SimpleModal";
+import SimpleModal from "./agribot/SimpleModal";
 export default function Navbar({ setIsAgriBotOpen }) {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);

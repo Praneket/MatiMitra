@@ -12,25 +12,17 @@ import {
 
 import AOS from "aos";
 import "aos/dist/aos.css";
-import SensorCard from "../components/SensorCard";
-import AdviceCard from "../components/AdviceCard";
-import SensorChart from "../components/SensorChart";
 import Navbar from "../components/Navbar";
 import { getFarmingTip } from "../utils/openai";
-import Carousel from "../components/Carousel";
-import AboutRootSense from "../components/AboutRootSense";
-import SoilTrendSection from "../components/SoilTrendSection";
+import Carousel from "../components/Home/Carousel";
+import AboutRootSense from "../components/Home/AboutRootSense";
+import SoilTrendSection from "../components/Home/SoilTrendSection";
 import { TypeAnimation } from "react-type-animation";
 import Footer from "../components/Footer";
-import SubscribeSection from "../components/SubscribeSection";
-import FarmerDashboard from "./FarmerDashboard";
-import FarmerFeedback from "../components/FarmerFeedback";
-import AgriBotButton from "../components/AgriButton";
-import { Outlet } from "react-router-dom";
-import SimpleModal from "../components/SimpleModal";
-import AgriBotChat from "../components/AgriBotChat";
-import { Bot, Mic, Send, User } from "lucide-react";
-import { TbInnerShadowBottomLeft } from "react-icons/tb";
+import SubscribeSection from "../components/Home/SubscribeSection";
+import FarmerFeedback from "../components/Home/FarmerFeedback";
+import AgriBotButton from "../components/agribot/AgriButton";
+import SimpleModal from "../components/agribot/SimpleModal";
 
 export default function Dashboard() {
   useEffect(() => {

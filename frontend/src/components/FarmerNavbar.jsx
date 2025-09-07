@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Lock, CalendarDays, Download, User, UserIcon } from "lucide-react";
 import { GiHamburgerMenu, GiRootTip } from "react-icons/gi";
-import Sidebar from "./Sidebar";
+import Sidebar from "./dashboard/Sidebar";
 import { useNavigate } from "react-router-dom";
 
 const userImg = "/img1.webp";
