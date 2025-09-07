@@ -1,9 +1,6 @@
-from backend.tools.weather_api import get_weather_info
-
-def solve_weather_issue(subproblem):
-    info = get_weather_info(subproblem)
+async def solve_weather_issue(query: str):
     return {
-        "agent": "Weather Agent",
-        "response": f"Weather Insight: {info}",
-        "confidence": 0.76
+        "agent": "WeatherAgent",
+        "response": "Check weather forecast. Delay spraying if rain expected.",
+        "confidence": 0.8
     }

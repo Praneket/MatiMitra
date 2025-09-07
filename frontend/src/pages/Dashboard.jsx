@@ -1,5 +1,4 @@
-// src/pages/Dashboard.js
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
 import {
   doc,
@@ -14,9 +13,13 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Navbar from "../components/Navbar";
 import { getFarmingTip } from "../utils/openai";
+
+import { getAgroRecommendation } from "../utils/agrothink"; // Primary (Local API)
+
 import Carousel from "../components/Home/Carousel";
 import AboutRootSense from "../components/Home/AboutRootSense";
 import SoilTrendSection from "../components/Home/SoilTrendSection";
+
 import { TypeAnimation } from "react-type-animation";
 import Footer from "../components/Footer";
 import SubscribeSection from "../components/Home/SubscribeSection";
@@ -39,7 +42,7 @@ export default function Dashboard() {
   const [tempLog, setTempLog] = useState([]);
   const [npkLog, setNpkLog] = useState([]);
 
-  // Live sensor data
+  // 🔴 Live sensor data
   useEffect(() => {
     const unsub = onSnapshot(doc(db, "sensors", "current"), (docSnap) => {
       if (docSnap.exists()) {
@@ -50,14 +53,25 @@ export default function Dashboard() {
     return () => unsub();
   }, []);
 
-  // Generate AI advice when data updates
+  // 🔵 AI Smart Farming Tip Generator
   useEffect(() => {
     if (data.moisture && data.ph && data.temperature && data.npk) {
-      getFarmingTip(data).then((tip) => setAdvice(tip));
+      getAgroRecommendation(data)
+        .then((tip) => {
+          if (!tip || tip.toLowerCase().includes("error")) {
+            throw new Error("Invalid response");
+          }
+          setAdvice(tip);
+        })
+        .catch(async (err) => {
+          console.warn("AgroThink failed. Falling back to OpenAI.", err);
+          const fallback = await getFarmingTip(data);
+          setAdvice(fallback || "⚠️ AI unavailable");
+        });
     }
   }, [data]);
 
-  // Live historical logs for charts
+  // 🟡 Sensor logs for charting
   useEffect(() => {
     const q = query(
       collection(db, "sensor_logs"),
@@ -93,6 +107,7 @@ export default function Dashboard() {
     return () => unsubscribe();
   }, []);
 
+  // 🔊 Text-to-Speech Button
   const speak = () => {
     const msg = new SpeechSynthesisUtterance(advice);
     msg.lang = "en-IN";

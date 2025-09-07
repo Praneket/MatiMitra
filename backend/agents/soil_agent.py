@@ -1,9 +1,6 @@
-from backend.rag.retriever import get_soil_info
-
-def solve_soil_issue(subproblem):
-    info = get_soil_info(subproblem)
+async def solve_soil_issue(query: str):
     return {
-        "agent": "Soil Agent",
-        "response": f"Soil Analysis: {info}",
-        "confidence": 0.82  # Mock score, we'll improve later
+        "agent": "SoilAgent",
+        "response": "Improve drainage and add lime for soil balance.",
+        "confidence": 0.85
     }

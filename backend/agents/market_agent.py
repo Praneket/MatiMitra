@@ -1,9 +1,6 @@
-from backend.tools.search_tool import search_market_prices
-
-def solve_market_issue(subproblem):
-    info = search_market_prices(subproblem)
+async def solve_market_issue(query: str):
     return {
-        "agent": "Market Agent",
-        "response": f"Market Advice: {info}",
-        "confidence": 0.71
+        "agent": "MarketAgent",
+        "response": "Use low-cost neem spray available locally.",
+        "confidence": 0.75
     }
