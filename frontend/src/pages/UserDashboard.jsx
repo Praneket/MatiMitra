@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { auth, db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import LogoutButton from "../components/LogoutButton";
 import Dashboard from "./Dashboard";
 
 export default function UserDashboard() {
@@ -21,17 +20,6 @@ export default function UserDashboard() {
   return (
     <>
       <Dashboard />
-      {/* <div className="mt-6 flex justify-between items-center">
-        <LogoutButton />
-        {role && (
-          <button
-            onClick={() => navigate(`/${role}`)}
-            className="bg-blue-600 px-4 py-2 rounded text-white"
-          >
-            Go to {role.charAt(0).toUpperCase() + role.slice(1)} Panel
-          </button>
-        )}
-      </div> */}
     </>
   );
 }

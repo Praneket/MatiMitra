@@ -1,7 +1,7 @@
 import { Mic, Send } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { TbInnerShadowBottomLeft } from "react-icons/tb";
-import { useAgriBot } from "../context/AgriBotContext";
+import { useAgriBot } from "../../context/AgriBotContext";
 
 const SimpleModal = ({ isOpen, onClose }) => {
   const { chat, setChat, input, setInput, sendMessage } = useAgriBot();

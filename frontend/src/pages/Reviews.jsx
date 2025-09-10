@@ -1,9 +1,9 @@
 // src/pages/Reviews.jsx
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import SimpleModal from "../components/SimpleModal";
-import ReviewsSection from "../components/ReviewSection";
-import ReviewModal from "../components/ReviewModal";
+import SimpleModal from "../components/agribot/SimpleModal";
+import ReviewsSection from "../components/reviews/ReviewSection";
+import ReviewModal from "../components/reviews/ReviewModal";
 import Footer from "../components/Footer";
 import { db } from "../firebase";
 import {

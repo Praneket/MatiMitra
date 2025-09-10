@@ -6,20 +6,16 @@ import ExpertDashboard from "./pages/ExpertDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import UserDashboard from "./pages/UserDashboard";
-import SoilAndWater from "./components/SoilAndWater";
 import Weather from "./components/Weather";
-import Taskmanagement from "./components/Taskmanagement";
 import Reviews from "./pages/Reviews";
-import Profile from "./pages/ProfilePage";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import ProfilePage from "./pages/ProfilePage";
-import GovernmentSchemesSection from "./components/GovernmentSchemsSection";
 import Soil from "./pages/Soil";
 import "./ChartSetup";
 import Tasks from "./pages/Tasks";
-import AgriBotButton from "./components/AgriButton";
+import AgriBotButton from "./components/agribot/AgriButton";
 
 function App() {
   useEffect(() => {
