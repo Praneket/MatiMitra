@@ -11,25 +11,21 @@ import {
 
 import AOS from "aos";
 import "aos/dist/aos.css";
-import SensorCard from "../components/SensorCard";
-import AdviceCard from "../components/AdviceCard";
-import SensorChart from "../components/SensorChart";
 import Navbar from "../components/Navbar";
 import { getFarmingTip } from "../utils/openai";
-import Carousel from "../components/Carousel";
-import AboutRootSense from "../components/AboutRootSense";
-import SoilTrendSection from "../components/SoilTrendSection";
+
+import { getAgroRecommendation } from "../utils/agrothink"; // Primary (Local API)
+
+import Carousel from "../components/Home/Carousel";
+import AboutRootSense from "../components/Home/AboutRootSense";
+import SoilTrendSection from "../components/Home/SoilTrendSection";
+
 import { TypeAnimation } from "react-type-animation";
 import Footer from "../components/Footer";
-import SubscribeSection from "../components/SubscribeSection";
-import FarmerDashboard from "./FarmerDashboard";
-import FarmerFeedback from "../components/FarmerFeedback";
-import AgriBotButton from "../components/AgriButton";
-import { Outlet } from "react-router-dom";
-import SimpleModal from "../components/SimpleModal";
-import AgriBotChat from "../components/AgriBotChat";
-import { Bot, Mic, Send, User } from "lucide-react";
-import { TbInnerShadowBottomLeft } from "react-icons/tb";
+import SubscribeSection from "../components/Home/SubscribeSection";
+import FarmerFeedback from "../components/Home/FarmerFeedback";
+import AgriBotButton from "../components/agribot/AgriButton";
+import SimpleModal from "../components/agribot/SimpleModal";
 
 export default function Dashboard() {
   useEffect(() => {
@@ -59,22 +55,21 @@ export default function Dashboard() {
 
   // 🔵 AI Smart Farming Tip Generator
   useEffect(() => {
-  if (data.moisture && data.ph && data.temperature && data.npk) {
-    getAgroRecommendation(data)
-      .then((tip) => {
-        if (!tip || tip.toLowerCase().includes("error")) {
-          throw new Error("Invalid response");
-        }
-        setAdvice(tip);
-      })
-      .catch(async (err) => {
-        console.warn("AgroThink failed. Falling back to OpenAI.", err);
-        const fallback = await getFarmingTip(data);
-        setAdvice(fallback || "⚠️ AI unavailable");
-      });
-  }
-}, [data]);
-
+    if (data.moisture && data.ph && data.temperature && data.npk) {
+      getAgroRecommendation(data)
+        .then((tip) => {
+          if (!tip || tip.toLowerCase().includes("error")) {
+            throw new Error("Invalid response");
+          }
+          setAdvice(tip);
+        })
+        .catch(async (err) => {
+          console.warn("AgroThink failed. Falling back to OpenAI.", err);
+          const fallback = await getFarmingTip(data);
+          setAdvice(fallback || "⚠️ AI unavailable");
+        });
+    }
+  }, [data]);
 
   // 🟡 Sensor logs for charting
   useEffect(() => {

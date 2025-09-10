@@ -1,7 +1,7 @@
 import { CalendarDays, Download, Space } from "lucide-react";
 import FarmerNavbar from "../components/FarmerNavbar";
-import Sidebar from "../components/Sidebar";
-import SensorCard from "../components/SensorCard";
+import Sidebar from "../components/dashboard/Sidebar";
+import SensorCard from "../components/dashboard/SensorCard";
 // src/pages/Dashboard.js
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
@@ -14,10 +14,9 @@ import {
   limit,
 } from "firebase/firestore";
 
-import AdviceCard from "../components/AdviceCard";
-import SensorChart from "../components/SensorChart";
+import SensorChart from "../components/dashboard/SensorChart";
 import { getFarmingTip } from "../utils/openai";
-import AIRecommendation from "../components/AiRecommendation";
+import AIRecommendation from "../components/dashboard/AIRecommendation";
 function FarmerDashboard() {
   const formattedDate = new Date(Date.now()).toLocaleDateString("en-US", {
     year: "numeric",

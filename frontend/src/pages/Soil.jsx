@@ -1,14 +1,11 @@
 import React from "react";
 import FarmerNavbar from "../components/FarmerNavbar";
-import SoilAndWater from "../components/SoilAndWater";
-import GovernmentSchemesSection from "../components/GovernmentSchemsSection";
-import SoilHealthCard from "../components/SoilHealthcard";
-import SoilTypesSection from "../components/SoilTypesSection";
-import NutrientAnalysisSection from "../components/NutrientAnalysisSection";
-import CropSuggestionSection from "../components/CropSuggestionSection";
-import NearbyLabsSection from "../components/NearByLabsSection";
-import FertilizerRecommendation from "../components/FertilizerRecommendation";
-import WaterInsightsSection from "../components/WaterInsightsSection";
+import GovernmentSchemesSection from "../components/soil/GovernmentSchemsSection";
+import NutrientAnalysisSection from "../components/soil/NutrientAnalysisSection";
+import CropSuggestionSection from "../components/soil/CropSuggestionSection";
+import NearbyLabsSection from "../components/soil/NearByLabsSection";
+import FertilizerRecommendation from "../components/soil/FertilizerRecommendation";
+import WaterInsightsSection from "../components/soil/WaterInsightsSection";
 
 const Soil = () => {
   return (

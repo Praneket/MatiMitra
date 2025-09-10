@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { db } from "../firebase";
+import { db } from "../../firebase";
 import { collection, getDocs, orderBy, query, limit } from "firebase/firestore";
 import { GiFertilizerBag } from "react-icons/gi";
 import { FiRefreshCw } from "react-icons/fi";
