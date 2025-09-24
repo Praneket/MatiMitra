@@ -10,7 +10,7 @@ export default function Footer() {
         <div>
           <div className="flex items-center gap-2 text-green-800 font-extrabold text-2xl">
             <GiRootTip className="text-3xl" />
-            <span>RootSense</span>
+            <span>MatiMitra</span>
           </div>
           <p className="mt-3 text-sm leading-6">
             Voice of the Soil. Empowering farmers with real-time soil insights
@@ -55,7 +55,7 @@ export default function Footer() {
 
       {/* Bottom Text */}
       <div className="mt-8 text-center text-xs text-gray-500">
-        &copy; {new Date().getFullYear()} RootSense. All rights reserved.
+        &copy; {new Date().getFullYear()} MatiMitra. All rights reserved.
       </div>
     </footer>
   );

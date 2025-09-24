@@ -11,7 +11,7 @@ const ReviewsSection = ({ reviews }) => {
           What People Think <span className="text-red-600">About Us</span>
         </h2>
         <p className="text-gray-600 text-lg mb-10 max-w-3xl mx-auto">
-          Hear directly from farmers how RootSense has transformed their
+          Hear directly from farmers how MatiMitra has transformed their
           agriculture with smarter soil decisions and sustainable practices.
         </p>
 

@@ -54,7 +54,7 @@ export default function Sidebar({ show, setShow }) {
             className="text-3xl sm:text-4xl font-extrabold tracking-tight text-green-700 drop-shadow-md cursor-pointer hover:text-green-800 transition duration-300"
           >
             <span className="flex mb-3">
-              <GiRootTip /> RootSense
+              <GiRootTip /> MatiMitra
             </span>
           </h1>
 

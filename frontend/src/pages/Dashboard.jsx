@@ -143,21 +143,43 @@ export default function Dashboard() {
       </div>
       <Carousel />
       <div className="p-6">
-        <h1 className="text-3xl font-bold mb-4">🌱 AI-Powered Soil Dashboard</h1>
+        <AboutRootSense />
+        <SoilTrendSection />
+        <div
+          className="bg-green-50 rounded-xl p-10 my-12 shadow-md"
+          data-aos="fade-up"
+        >
+          <h2 className="text-4xl font-bold text-green-800 mb-6 text-center">
+            Get AI Recommendations
+          </h2>
+          <p className="text-center text-gray-700 mb-6 text-lg max-w-3xl mx-auto">
+            Based on real-time sensor data, Mati Mitra provides actionable
+            AI-driven suggestions to help farmers make smarter decisions for
+            soil health, fertilizer usage, irrigation, and crop planning.
+          </p>
 
-        {/* Live Sensor Cards */}
-        <div className="flex flex-wrap justify-start gap-4">
-          <SensorCard title="Moisture" value={data.moisture} unit="%" />
-          <SensorCard title="Soil pH" value={data.ph} unit="" />
-          <SensorCard title="Temperature" value={data.temperature} unit="°C" />
-          <SensorCard title="NPK (Raw)" value={data.npk} unit="" />
+          <div className="bg-white border-l-4 border-green-500 p-6 rounded shadow-inner max-w-2xl mx-auto">
+            <p className="text-lg text-gray-800 italic">
+              <TypeAnimation
+                sequence={[message]}
+                speed={40}
+                wrapper="span"
+                cursor={true}
+                className="text-gray-800 text-base font-medium leading-relaxed"
+              />
+            </p>
+          </div>
         </div>
 
-        {/* AI Farming Tip */}
+        {/*         
         <AdviceCard advice={advice} speak={speak} />
 
-        {/* Live Charts */}
-        <SensorChart title="Moisture (%)" dataPoints={moistureLog} color="teal" />
+        
+        <SensorChart
+          title="Moisture (%)"
+          dataPoints={moistureLog}
+          color="teal"
+        />
         <SensorChart title="Soil pH" dataPoints={phLog} color="orange" />
         <SensorChart
           title="Temperature (°C)"

@@ -101,7 +101,7 @@ const WaterInsightsSection = ({ moistureLevel = 24 }) => {
           </h3>
         </div>
         <p className="text-gray-700 text-sm">
-          RootSense is aligned with{" "}
+          MatiMitra is aligned with{" "}
           <strong>PMKSY (Pradhan Mantri Krishi Sinchayee Yojana)</strong>
           by enabling real-time moisture tracking, optimizing irrigation, and
           empowering farmers with water-efficient technologies.
@@ -109,7 +109,7 @@ const WaterInsightsSection = ({ moistureLevel = 24 }) => {
         <ul className="mt-3 list-disc pl-6 text-gray-600 text-sm">
           <li>Custom irrigation scheduler based on local weather + soil</li>
           <li>Detects leaks or excess watering instantly</li>
-          <li>Farmers eligible for PMKSY can sync their RootSense dashboard</li>
+          <li>Farmers eligible for PMKSY can sync their MatiMitra dashboard</li>
         </ul>
       </div>
     </section>

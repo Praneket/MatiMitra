@@ -7,7 +7,7 @@ const feedbacks = [
     name: "Ramesh Patil",
     location: "Maharashtra, India",
     message:
-      "RootSense has helped me understand my soil better. I reduced fertilizer usage and still increased crop yield!",
+      "MatiMitra has helped me understand my soil better. I reduced fertilizer usage and still increased crop yield!",
     image: "/PH.jpg",
   },
   {
@@ -21,7 +21,7 @@ const feedbacks = [
     name: "Harinder Singh",
     location: "Punjab, India",
     message:
-      "AI suggestions from RootSense are like having an expert in my pocket. I trust it more than my old methods now!",
+      "AI suggestions from MatiMitra are like having an expert in my pocket. I trust it more than my old methods now!",
     image: "/PH.jpg",
   },
 ];

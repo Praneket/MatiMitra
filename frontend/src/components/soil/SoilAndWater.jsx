@@ -57,7 +57,7 @@ const SoilAndWater = () => {
             <ul className="mt-4 text-sm text-gray-600 list-disc pl-5">
               <li>Use early morning watering to reduce evaporation</li>
               <li>AI alerts when soil moisture drops below 25%</li>
-              <li>Save water by 22% using RootSense planner</li>
+              <li>Save water by 22% using MatiMitra planner</li>
             </ul>
           </div>
         </div>
@@ -71,7 +71,7 @@ const SoilAndWater = () => {
             </h3>
           </div>
           <p className="text-gray-700 text-sm">
-            RootSense is aligned with{" "}
+            MatiMitra is aligned with{" "}
             <strong>PMKSY (Pradhan Mantri Krishi Sinchayee Yojana)</strong>
             by enabling real-time moisture tracking, optimizing irrigation, and
             empowering farmers with water-efficient technologies.
@@ -80,7 +80,7 @@ const SoilAndWater = () => {
             <li>Custom irrigation scheduler based on local weather + soil</li>
             <li>Detects leaks or excess watering instantly</li>
             <li>
-              Farmers eligible for PMKSY can sync their RootSense dashboard
+              Farmers eligible for PMKSY can sync their MatiMitra dashboard
             </li>
           </ul>
         </div>

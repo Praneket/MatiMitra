@@ -15,7 +15,7 @@ const ProfilePage = () => {
   const [editMode, setEditMode] = useState(false);
   const [user, setUser] = useState({
     name: "Dnyaneshwari Taware",
-    email: "dnyanu@rootsense.ai",
+    email: "dnyanu@MatiMitra.ai",
     phone: "+91 9876543210",
     image: "/img1.webp",
     location: "Pune, Maharashtra",
