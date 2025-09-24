@@ -6,13 +6,13 @@ import { getDatabase } from "firebase/database";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAGNgzqDOtQ0ljmMIUl-uxiqYAh1JeT1Pw",
-  authDomain: "rootsense-e5557.firebaseapp.com",
-  projectId: "rootsense-e5557",
-  storageBucket: "rootsense-e5557.firebasestorage.app",
-  messagingSenderId: "1088832964488",
-  appId: "1:1088832964488:web:db2eaea66395b47bfb5c3d",
-  databaseURL: "https://rootsense-e5557-default-rtdb.firebaseio.com"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL
 }
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
