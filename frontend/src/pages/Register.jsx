@@ -36,7 +36,7 @@ export default function Register() {
       });
 
       // redirect based on role
-      if (role === "farmer") navigate("/farmer");
+      if (role === "farmer") navigate("/");
       else if (role === "admin") navigate("/admin");
       else navigate("/dashboard");
     } catch (error) {

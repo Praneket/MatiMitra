@@ -1,22 +1,20 @@
 import { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import { GiRootTip } from "react-icons/gi";
 import { IoIosPerson } from "react-icons/io";
 import { RiLogoutBoxLine } from "react-icons/ri";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase";
-import SimpleModal from "./agribot/SimpleModal";
+import { signOut, onAuthStateChanged } from "firebase/auth";
+import { auth, db } from "../firebase";
+import { doc, getDoc } from "firebase/firestore";
+
 export default function Navbar({ setIsAgriBotOpen }) {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const [username, setUsername] = useState("");
-  const onClose = () => {
-    setIsOpen(false);
-  };
+  const [userEmail, setUserEmail] = useState("");
 
   const logout = async () => {
     await signOut(auth);
@@ -24,13 +22,35 @@ export default function Navbar({ setIsAgriBotOpen }) {
   };
 
   useEffect(() => {
-    // Check Firebase auth user for displayName
-    const user = auth.currentUser;
-    if (user) {
-      const name = user.displayName || user.email?.split("@")[0]; // fallback
-      setUsername(name);
-    }
+    // Track logged-in user
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        // fallback name = part before @
+        const displayName = user.displayName || user.email?.split("@")[0];
+        setUsername(displayName);
+        setUserEmail(user.email);
+
+        // If you also stored custom name in Firestore (like in Register form)
+        const docSnap = await getDoc(doc(db, "users", user.uid));
+        if (docSnap.exists() && docSnap.data().name) {
+          setUsername(docSnap.data().name);
+        }
+        // fetch extra info from Firestore
+        if (docSnap.exists()) {
+          setUserData({ uid: user.uid, ...docSnap.data() });
+        } else {
+          // fallback if no Firestore doc
+          setUserData({ uid: user.uid, email: user.email });
+        }
+      } else {
+        setUsername("");
+        setUserEmail("");
+        setUserData(null);
+      }
+    });
+    return () => unsubscribe();
   }, []);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -38,17 +58,16 @@ export default function Navbar({ setIsAgriBotOpen }) {
         setDropdownOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
-    <div className="z-50 sticky  top-0 bg-white/30 backdrop-blur-2xl shadow-sm">
-      <div className=" mx-auto  px-6 py-4 flex flex-col sm:flex-row items-center justify-between ">
+    <div className="z-50 sticky top-0 bg-white/30 backdrop-blur-2xl shadow-sm">
+      <div className="mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between">
         {location.pathname === "/profile" ? (
           <div className="flex gap-1">
-            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-green-700 drop-shadow-md cursor-pointer hover:text-green-800 transition duration-300">
+            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-green-700 drop-shadow-md">
               <GiRootTip />
             </h1>
 
@@ -56,7 +75,7 @@ export default function Navbar({ setIsAgriBotOpen }) {
               <p className="text-sm font-medium text-gray-800">
                 {username || "User"}
               </p>
-              <p className="text-xs text-gray-500">jadhavpraneket@gmail.com</p>
+              <p className="text-xs text-gray-500">{userEmail || ""}</p>
             </div>
           </div>
         ) : (
@@ -70,6 +89,7 @@ export default function Navbar({ setIsAgriBotOpen }) {
           </h1>
         )}
 
+        {/* Rest of your menu unchanged */}
         <ul className="flex justify-center items-center space-x-6 text-sm font-medium">
           <li
             className="cursor-pointer hover:text-green-700"
@@ -79,23 +99,20 @@ export default function Navbar({ setIsAgriBotOpen }) {
           </li>
           <li
             className="cursor-pointer hover:text-green-700"
-            onClick={() => navigate("/farmer")}
+            onClick={() =>
+              `userData.role=="farmer"?${navigate("/farmer")}:${navigate(
+                "/farmer"
+              )}`
+            }
           >
             Dashboard
           </li>
           <li
             className="cursor-pointer hover:text-green-700"
-            // onClick={() => navigate("/agribot")}
             onClick={() => setIsAgriBotOpen(true)}
           >
             AgriBot
           </li>
-          {/* <SimpleModal isOpen={isOpen} onClose={onClose}>
-            <p>This is the AgriBot assistant modal!</p>
-            <button className="bg-green-500 text-white px-4 py-1 rounded">
-              Try Now
-            </button>
-          </SimpleModal> */}
           <li
             className="cursor-pointer hover:text-green-700"
             onClick={() => navigate("/reviews")}

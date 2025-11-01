@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FiEdit, FiMapPin, FiSave } from "react-icons/fi";
 import {
   LineChart,
@@ -10,25 +10,60 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
+import { auth, db } from "../firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 const ProfilePage = () => {
   const [editMode, setEditMode] = useState(false);
-  const [user, setUser] = useState({
-    name: "Dnyaneshwari Taware",
-    email: "dnyanu@MatiMitra.ai",
-    phone: "+91 9876543210",
-    image: "/img1.webp",
-    location: "Pune, Maharashtra",
-  });
+  const [user, setUser] = useState(null); // initially null
+
+  useEffect(() => {
+    // Track logged-in user
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        const userRef = doc(db, "users", currentUser.uid);
+        const docSnap = await getDoc(userRef);
+
+        if (docSnap.exists()) {
+          setUser({ uid: currentUser.uid, ...docSnap.data() });
+        } else {
+          // fallback if no Firestore doc
+          setUser({
+            uid: currentUser.uid,
+            name: currentUser.displayName || currentUser.email.split("@")[0],
+            email: currentUser.email,
+            phone: "",
+            image: "/img1.webp",
+            location: "",
+          });
+        }
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const handleChange = (field, value) => {
     setUser((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSave = () => {
-    setEditMode(false);
-    // Save logic (Firebase/Backend integration can go here)
-    alert("Profile updated!");
+  const handleSave = async () => {
+    if (!user?.uid) return;
+
+    try {
+      await updateDoc(doc(db, "users", user.uid), {
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        location: user.location,
+      });
+      setEditMode(false);
+      alert("Profile updated!");
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      alert("Failed to update profile");
+    }
   };
 
   const soilData = [
@@ -39,20 +74,17 @@ const ProfilePage = () => {
     { day: "Fri", moisture: 36, ph: 6.7, temp: 30, npk: 70 },
   ];
 
+  if (!user) {
+    return <p className="p-6">Loading profile...</p>;
+  }
+
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-green-50">
       {/* Side Profile */}
-      <aside
-        className="w-full lg:w-1/4
-      md:w-1/3 bg-green-100 shadow-md p-6 lg:sticky top-0 h-fit"
-      >
-        <div
-          className="flex flex-col lg:min-h-screen 
-        md:min-h-screen 
-        items-center text-center"
-        >
+      <aside className="w-full lg:w-1/4 md:w-1/3 bg-green-100 shadow-md p-6 lg:sticky top-0 h-fit">
+        <div className="flex flex-col lg:min-h-screen md:min-h-screen items-center text-center">
           <img
-            src={user.image}
+            src={user.image || "/img1.webp"}
             alt="Profile"
             className="w-36 h-36 rounded-full object-cover mb-4 shadow-md"
           />
@@ -104,7 +136,7 @@ const ProfilePage = () => {
               onChange={(e) => handleChange("location", e.target.value)}
             />
           ) : (
-            <span>{user.location}</span>
+            <span>{user.farmLocation}</span>
           )}
         </div>
 
